@@ -5,7 +5,7 @@ EXPOSE 80
 EXPOSE 5024
 
 COPY ./*.csproj ./
-RUN dotnet restore
+RUN dotnet restore --force
 
 COPY . .
 RUN dotnet publish -c Release -o out
