@@ -21,4 +21,5 @@ COPY --from=build /app/MyWebApplication1/out ./
 # Expone el puerto y ejecuta la aplicación
 EXPOSE 80
 EXPOSE 5024
+EXPOSE 8080
 ENTRYPOINT ["dotnet", "MyWebApplication1.dll"]
