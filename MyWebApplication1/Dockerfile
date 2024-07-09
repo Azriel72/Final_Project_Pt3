@@ -1,19 +1,15 @@
-FROM docker pull mcr.microsoft.com/dotnet/sdk:8.0 AS base
-WORKDIR /app
-EXPOSE 80
-
+# Build Stage
 FROM docker pull mcr.microsoft.com/dotnet/sdk:8.0 AS build
-WORKDIR /src
-COPY ["MyWebApplication1/MyWebApplication1.csproj", "MyWebApplication1/"]
-RUN dotnet restore "MyWebApplication1/MyWebApplication1.csproj"
+WORKDIR /source
 COPY . .
-WORKDIR "/src/MyWebApplication1"
-RUN dotnet build "MyWebApplication1.csproj" -c Release -o /app/build
+RUN dotnet restore "./MyWebApplication1/MyWebApplication1.csproj" --disable parallel
+RUN dotnet publish "./MyWebApplication1/MyWebApplication1.csproj" -c Release -o /app --no-restore
 
-FROM build AS publish
-RUN dotnet build "MyWebApplication1.csproj" -c Release -o /app/publish
-
-FROM base AS final
+# Serve Stage
+FROM docker pull mcr.microsoft.com/dotnet/sdk:8.0
 WORKDIR /app
-COPY --from=publish /app/publish .
+COPY --from=build /app ./
+
+EXPOSE 5000
+
 ENTRYPOINT ["dotnet", "MyWebApplication1.dll"]
