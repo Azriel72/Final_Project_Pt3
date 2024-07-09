@@ -1,20 +1,24 @@
-# Stage 1: Build stage
+# Utiliza la imagen base del SDK de .NET
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-WORKDIR /webapp
+WORKDIR /app
 
-EXPOSE 80
-EXPOSE 5024
+# Copia el archivo csproj y restaura las dependencias
+COPY MyWebApplication1/*.csproj ./MyWebApplication1/
+WORKDIR /app/MyWebApplication1
+RUN dotnet restore
 
-# Copy csproj and restore as distinct layers
-COPY *.csproj ./
-RUN dotnet restore --force
-
-# Copy everything else and build
+# Copia el resto de los archivos y compila la aplicación
+WORKDIR /app
 COPY . .
+WORKDIR /app/MyWebApplication1
 RUN dotnet publish -c Release -o out
 
-# Stage 2: Runtime image
+# Construye la imagen final del contenedor
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
-WORKDIR /webapp
-COPY --from=build /webapp/out .
+WORKDIR /app
+COPY --from=build /app/MyWebApplication1/out ./
+
+# Expone el puerto y ejecuta la aplicación
+EXPOSE 80
+EXPOSE 5024
 ENTRYPOINT ["dotnet", "MyWebApplication1.dll"]
