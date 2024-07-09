@@ -51,7 +51,8 @@
               "RelativeToolTip": "MyWebApplication1\\Controllers\\SW_Controller.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAA5AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-08T13:22:40.36Z"
+              "WhenOpened": "2024-07-08T13:22:40.36Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -63,7 +64,8 @@
               "RelativeToolTip": "UnitTests\\UnitTest1.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAABBAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-08T13:09:38.295Z"
+              "WhenOpened": "2024-07-08T13:09:38.295Z",
+              "EditorCaption": ""
             }
           ]
         }
