@@ -7,7 +7,6 @@ EXPOSE 5024
 
 # Copy csproj and restore as distinct layers
 COPY *.csproj ./
-RUN dotnet clean
 RUN dotnet restore --force
 
 # Copy everything else and build
